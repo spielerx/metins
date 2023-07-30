@@ -1,4 +1,4 @@
-import { Container, Grid, Skeleton } from "app/ui";
+import { Container, Grid, Skeleton, Typography } from "app/ui";
 import { useSelectCurrentUser } from "modules/auth/authSlice";
 import { Course, useGetCoursesQuery } from "modules/courses/courseApi";
 import CourseCard from "modules/courses/components/CourseCard";
@@ -11,7 +11,10 @@ export default function DashboardPage() {
 
   return (
     <Container>
-      <Grid container spacing={4} mt={3}>
+      <Typography component="h1" variant="h3" mb={4}>
+        My courses
+      </Typography>
+      <Grid container spacing={4}>
         {isLoading
           ? Array.from(new Array(2)).map((_, index) => (
               <Grid item xs={12} md={6} key={index}>

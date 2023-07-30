@@ -5,7 +5,7 @@ export interface Topic {
   id: number;
   title: string;
   excerpt: string;
-  type: "lection" | "exercise";
+  type: "lecture" | "practical";
   plannedOn: string;
 }
 

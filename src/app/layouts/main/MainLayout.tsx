@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { APP_NAME } from "app/constants/page";
-import { Button, Toolbar, Typography } from "app/ui";
+import { Box, Button, Toolbar, Typography } from "app/ui";
 import { VerifiedUser } from "@mui/icons-material";
 import { useAppDispatch } from "app/store";
 import { logOut, useSelectCurrentUser } from "modules/auth/authSlice";
@@ -43,7 +43,9 @@ export default function MainLayout() {
           Logout
         </Button>
       </Toolbar>
-      <Outlet />
+      <Box mt={3}>
+        <Outlet />
+      </Box>
     </div>
   );
 }

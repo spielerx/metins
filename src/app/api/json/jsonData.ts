@@ -1,4 +1,5 @@
 import { Course } from "modules/courses/courseApi";
+import { modifyDateByDays } from "utils/dates";
 
 export const user = {
   id: 1,
@@ -7,9 +8,6 @@ export const user = {
   password: "password",
   courses: [1, 2]
 };
-
-const modifyDate = (days: number) =>
-  new Date(new Date().setDate(new Date().getDate() - days)).toISOString();
 
 export const courses: Course[] = [
   {
@@ -22,29 +20,29 @@ export const courses: Course[] = [
         id: 1,
         title: "Introduction",
         excerpt: "Introduction to JavaScript",
-        type: "lection",
-        plannedOn: modifyDate(-10)
+        type: "lecture",
+        plannedOn: modifyDateByDays(-10)
       },
       {
         id: 2,
         title: "Variables",
         excerpt: "Introduction to variables",
-        type: "exercise",
-        plannedOn: modifyDate(1)
+        type: "practical",
+        plannedOn: modifyDateByDays(1)
       },
       {
         id: 3,
         title: "Functions",
         excerpt: "Introduction to functions",
-        type: "lection",
-        plannedOn: modifyDate(2)
+        type: "lecture",
+        plannedOn: modifyDateByDays(2)
       },
       {
         id: 4,
         title: "Objects",
         excerpt: "Introduction to objects",
-        type: "lection",
-        plannedOn: modifyDate(3)
+        type: "lecture",
+        plannedOn: modifyDateByDays(3)
       }
     ]
   },
@@ -58,22 +56,22 @@ export const courses: Course[] = [
         id: 5,
         title: "Introduction",
         excerpt: "Introduction to React",
-        type: "lection",
-        plannedOn: modifyDate(-10)
+        type: "lecture",
+        plannedOn: modifyDateByDays(-10)
       },
       {
         id: 6,
         title: "Components",
         excerpt: "Introduction to components",
-        type: "exercise",
-        plannedOn: modifyDate(1)
+        type: "practical",
+        plannedOn: modifyDateByDays(1)
       },
       {
         id: 7,
         title: "Hooks",
         excerpt: "Introduction to hooks",
-        type: "lection",
-        plannedOn: modifyDate(2)
+        type: "lecture",
+        plannedOn: modifyDateByDays(2)
       }
     ]
   }
