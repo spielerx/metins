@@ -19,8 +19,6 @@ export default function TopicsTable({
     <DataGrid
       columns={[
         { field: "title", headerName: "Title", width: 200 },
-        { field: "excerpt", headerName: "Description", width: 300 },
-        { field: "type", headerName: "Type" },
         {
           field: "plannedOn",
           headerName: "Date",
@@ -28,13 +26,28 @@ export default function TopicsTable({
           minWidth: 200
         },
         {
+          field: "excerpt",
+          headerName: "Description",
+          width: 300,
+          sortable: false
+        },
+        { field: "type", headerName: "Type", sortable: false },
+        {
           field: "status",
           headerName: "Status",
           valueGetter: (params) => {
             return new Date(params.row.plannedOn);
           },
           valueFormatter: ({ value }) =>
-            new Date(value) > new Date() ? "upcoming" : "passed"
+            new Date(value) > new Date() ? "upcoming" : "passed",
+          sortable: false
+        },
+        {
+          field: "notes",
+          headerName: "Notes",
+          editable: true,
+          sortable: false,
+          width: 200
         }
       ]}
       rows={topics}
