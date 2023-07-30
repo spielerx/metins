@@ -2,7 +2,7 @@
 export const jsonData: Record<string, any> = {
   user: {
     id: 1,
-    login: "user",
+    email: "user@gmail.com",
     password: "password"
   }
 };

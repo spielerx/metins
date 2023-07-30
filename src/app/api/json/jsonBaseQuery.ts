@@ -8,18 +8,18 @@ const jsonBaseQuery =
   ): BaseQueryFn<
     {
       url: string;
-      data?: any;
+      body?: any;
     },
     unknown,
     unknown
   > =>
-  async ({ url, data }) => {
+  async ({ url, body }) => {
     try {
       const fullUrl = baseUrl + url;
 
       if (jsonEndpoints[fullUrl]) {
         return {
-          data: jsonEndpoints[fullUrl].handler(data)
+          data: jsonEndpoints[fullUrl].handler(body)
         };
       } else {
         throw new Error(`Unknown endpoint: ${fullUrl}`);

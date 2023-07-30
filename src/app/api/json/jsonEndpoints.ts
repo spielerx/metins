@@ -14,12 +14,14 @@ export const jsonEndpoints: Record<
       await pause(300);
 
       if (
-        data.login === jsonData.user.login &&
-        data.password === jsonData.user.password
+        data?.email === jsonData.user.email &&
+        data?.password === jsonData.user.password
       ) {
         return {
           id: jsonData.user.id
         };
+      } else {
+        throw new Error("Invalid email or password");
       }
     }
   }

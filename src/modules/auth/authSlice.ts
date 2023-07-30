@@ -1,29 +1,40 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "app/store";
 
+export interface User {
+  id: number;
+  name: string;
+}
 interface AuthState {
-  loading: boolean;
-  success: boolean;
-  userInfo: {
-    name?: string;
-    email?: string;
-  };
-  userToken: string | null;
-  error: string | null;
+  user: User | null;
+  isAuthenticated: boolean;
 }
 
 const initialState: AuthState = {
-  loading: false,
-  success: false, // for monitoring the registration process.
-  userInfo: {}, // for user object
-  userToken: null, // for storing the JWT
-  error: null
+  user: null,
+  isAuthenticated: false
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
-  extraReducers: {}
+  reducers: {
+    setCredentials: (state, action) => {
+      const { user } = action.payload;
+      state.user = user;
+      state.isAuthenticated = true;
+    },
+    logOut: (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+    }
+  }
 });
 
+export const { setCredentials, logOut } = authSlice.actions;
+
 export default authSlice.reducer;
+
+export const selectCurrentUser = (state: RootState) => state.auth.user;
+export const selectIsAuthenticated = (state: RootState) =>
+  state.auth.isAuthenticated;

@@ -1,8 +1,7 @@
-import React from "react";
 import {
   Avatar,
   Box,
-  Button,
+  LoadingButton,
   Checkbox,
   Container,
   CssBaseline,
@@ -13,26 +12,43 @@ import {
   Typography
 } from "app/ui";
 import { LockOutlined } from "@mui/icons-material";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const loginSchema = z.object({
+  email: z.string().nonempty("Email is required").email("Email is invalid"),
+  password: z
+    .string()
+    .nonempty("Password is required")
+    .min(8, "Password must be more than 8 characters")
+    .max(32, "Password must be less than 32 characters")
+});
+
+export type LoginInput = z.TypeOf<typeof loginSchema>;
 
 interface LoginFormProps {
-  onSubmit?: (values: unknown) => void;
+  loading?: boolean;
+  error?: Error;
+  onSubmit?: (values: LoginInput) => void;
 }
 
-export default function LoginForm({ onSubmit }: LoginFormProps) {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password")
-    });
-
-    onSubmit &&
-      onSubmit({
-        email: data.get("email"),
-        password: data.get("password")
-      });
-  };
+export default function LoginForm({
+  loading,
+  error,
+  onSubmit
+}: LoginFormProps) {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit
+  } = useForm<LoginInput>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "user@gmail.com",
+      password: "password"
+    }
+  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -51,39 +67,50 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        {error && <Typography color="error">{error.message}</Typography>}
+        <Box
+          component="form"
+          onSubmit={handleSubmit((values) => onSubmit?.(values))}
+          noValidate
+          sx={{ mt: 1 }}
+        >
           <TextField
             margin="normal"
             required
             fullWidth
             id="email"
             label="Email Address"
-            name="email"
             autoComplete="email"
             autoFocus
+            error={!!errors["email"]}
+            helperText={errors["email"] ? errors["email"].message : ""}
+            {...register("email")}
           />
           <TextField
             margin="normal"
             required
             fullWidth
-            name="password"
             label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
+            error={!!errors["password"]}
+            helperText={errors["password"] ? errors["password"].message : ""}
+            {...register("password")}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
+          <LoadingButton
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            loading={loading}
           >
             Sign In
-          </Button>
+          </LoadingButton>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">

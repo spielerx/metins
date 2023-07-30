@@ -4,15 +4,21 @@ import GuestLayout from "app/layouts/guest/GuestLayout";
 import ErrorPage from "pages/ErrorPage";
 import HomePage from "pages/HomePage";
 import LoginPage from "pages/LoginPage";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
-    element: <MainLayout />,
-    errorElement: <ErrorPage />,
+    element: <PrivateRoute />,
     children: [
       {
-        path: "/",
-        element: <HomePage />
+        element: <MainLayout />,
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            path: "/",
+            element: <HomePage />
+          }
+        ]
       }
     ]
   },
