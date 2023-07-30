@@ -9,7 +9,7 @@ export const user = {
 };
 
 const modifyDate = (days: number) =>
-  new Date(new Date().setDate(new Date().getDate() - days));
+  new Date(new Date().setDate(new Date().getDate() - days)).toISOString();
 
 export const courses: Course[] = [
   {

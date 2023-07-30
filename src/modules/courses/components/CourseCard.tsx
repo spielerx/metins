@@ -6,10 +6,11 @@ import {
   Typography
 } from "app/ui";
 import { Course } from "../courseApi";
+import { Link } from "react-router-dom";
 
 export default function CourseCard({ course }: { course: Course }) {
   return (
-    <CardActionArea component="a" href="#">
+    <CardActionArea component={Link} to={`/course/${course.id}`}>
       <Card sx={{ display: "flex" }}>
         <CardContent sx={{ flex: 1 }}>
           <Typography component="h2" variant="h5">

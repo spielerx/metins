@@ -6,7 +6,7 @@ export interface Topic {
   title: string;
   excerpt: string;
   type: "lection" | "exercise";
-  plannedOn: Date;
+  plannedOn: string;
 }
 
 export interface Course {
