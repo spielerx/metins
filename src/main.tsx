@@ -4,7 +4,7 @@ import {
   ThemeProvider,
   StoreProvider,
   BrowserRouterProvider
-} from "utils/providers";
+} from "app/providers";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
