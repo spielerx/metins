@@ -2,17 +2,19 @@ import React from "react";
 import { Container, Stack, Typography } from "app/ui";
 import { useGetCourseQuery } from "modules/courses/courseApi";
 import TopicsTable from "modules/courses/components/TopicsTable";
+import { useParams } from "react-router-dom";
 
 export default function CoursePage() {
   const [loading, setLoading] = React.useState(false);
+  const { courseId } = useParams();
+
+  const { data } = useGetCourseQuery(parseInt(courseId!));
 
   const handleUpdate = async () => {
     setLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setLoading(false);
   };
-
-  const { data } = useGetCourseQuery(1);
 
   return (
     <Container>
